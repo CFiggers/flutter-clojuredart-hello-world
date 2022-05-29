@@ -1,0 +1,51 @@
+(ns acme.main
+    ;; pure dart package are imported using string
+  (:require ["package:flutter/material.dart" :as material]
+            ["package:flutter/widgets.dart" :as widgets]
+            ["package:flutter/painting.dart" :as painting]))
+
+(defn main []
+  (material/runApp
+   (material/MaterialApp
+    :title "Welcome to Flutter"
+    :theme (material/ThemeData :primarySwatch material.Colors/pink)
+    :home (material/Scaffold
+           :appBar (material/AppBar
+                    :title (widgets/Text "Welcome to ClojureDart")
+                    :backgroundColor material.Colors/blue)
+           :body (widgets/Center
+                  :child (widgets/Padding
+                          :padding (. material/EdgeInsets all 100)
+                          :child (widgets/Text "This text is Centered by Caleb."
+                                               :style (painting/TextStyle
+                                                       :color material.Colors/blue
+                                                       :fontSize 32.0))))
+           :bottomNavigationBar (material/BottomNavigationBar
+                                 :items [(material/BottomNavigationBarItem
+                                          :icon (widgets/Icon (. material/Icons home))
+                                          :label "Home")
+                                         (material/BottomNavigationBarItem
+                                          :icon (widgets/Icon (. material/Icons business))
+                                          :label "Business")
+                                         (material/BottomNavigationBarItem
+                                          :icon (widgets/Icon (. material/Icons school))
+                                          :label "School")])
+           :drawer (material/Drawer
+                    :child (widgets/ListView
+                            :padding (. painting/EdgeInsets zero)
+                            :children [(material/DrawerHeader
+                                        :decoration (painting/BoxDecoration
+                                                     :color material.Colors/blue)
+                                        :child (widgets/Text "Drawer Header"
+                                                             :style (painting/TextStyle
+                                                                     :color material.Colors/white
+                                                                     :fontSize 24.0)))
+                                       (material/ListTile
+                                        :leading (widgets/Icon (. material/Icons message))
+                                        :title (widgets/Text "My Messages"))
+                                       (material/ListTile
+                                        :leading (widgets/Icon (. material/Icons account_circle))
+                                        :title (widgets/Text "My Profile"))
+                                       (material/ListTile
+                                        :leading (widgets/Icon (. material/Icons settings))
+                                        :title (widgets/Text "My Settings"))]))))))
